@@ -1,0 +1,33 @@
+services:
+
+  mysql:
+    container_name: mysql_c
+#    volumes:
+#      - mysql_vol:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: profesor
+    build:
+      context: ./mysql
+
+  tomcat:
+    container_name: tomcat_c
+    build:
+      context: ../../
+      dockerfile: scripts/docker_compose/tomcat/Dockerfile
+    depends_on:
+      - mysql
+
+  nginx:
+    container_name: nginx_c
+    build:
+      context: ../../
+      dockerfile: scripts/docker_compose/nginx/Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - mysql
+      - tomcat
+
+#volumes:
+#  mysql_vol:
