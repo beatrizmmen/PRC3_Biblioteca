@@ -1,8 +1,8 @@
 FROM tomcat:9.0
 
-COPY BibliotecaJPA /BibliotecaJPA
+COPY Biblioteca /Biblioteca
 
-RUN cd /BibliotecaJPA &&\
+RUN cd /Biblioteca &&\
 cd build &&\
 mv classes ../WebContent/WEB-INF &&\
 cd .. &&\
@@ -12,4 +12,4 @@ cd .. &&\
 sed -i 's/.*javax.persistence.jdbc.url.*/<property name="javax.persistence.jdbc.url" value="jdbc:mysql:\/\/mysql_c:3306\/biblioteca"\/>/' WebContent/WEB-INF/classes/META-INF/persistence.xml &&\
 cd WebContent &&\
 jar -cvf /usr/local/tomcat/webapps/Biblioteca.war * &&\
-rm -rf /BibliotecaJPA
+rm -rf /Biblioteca
